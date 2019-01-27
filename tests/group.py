@@ -23,3 +23,4 @@ class ContactFormAttributes:
         self.notes = notes
         self.address2 = address2
 
+

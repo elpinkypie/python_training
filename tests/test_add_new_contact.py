@@ -99,19 +99,26 @@ class AddNewContact(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.fill_first_last_name(wd, ContactFormAttributes(firstname="elena", middlename="test", lastname="lastname"))
-        self.fill_nickname_title_company(wd, ContactFormAttributes(nickname="nickname", title="QA", company="CPA"))
+        user_data = ContactFormAttributes(firstname="elena", middlename="test", lastname="lastname", nickname="nickname", title="QA", company="CPA", address="no address", mobile="+7 (495) 510-55-57", email="elena.dobranitsa@gmail.com", byear="1991", address2="no secondary address", phone2="Kiev", notes="no notes")
 
-        self.fill_address(wd, ContactFormAttributes(address="no address"))
-        self.fill_home_work_phones(wd, ContactFormAttributes(mobile="+7 (495) 510-55-57"))
+        self.fill_first_last_name(wd, user_data)
+        self.fill_nickname_title_company(wd, user_data)
+        self.fill_address(wd, user_data)
+        self.fill_home_work_phones(wd, user_data)
+        self.fill_email(wd, user_data)
+        self.fill_birthday(wd, user_data)
+        self.fill_address2(wd, user_data)
+        self.fill_phone2_notes(wd, user_data)
 
-        self.fill_email(wd, ContactFormAttributes(email="elena.dobranitsa@gmail.com"))
+        # self.fill_first_last_name(wd, ContactFormAttributes(firstname="elena", middlename="test", lastname="lastname"))
+        # self.fill_nickname_title_company(wd, ContactFormAttributes(nickname="nickname", title="QA", company="CPA"))
+        # self.fill_address(wd, ContactFormAttributes(address="no address"))
+        # self.fill_home_work_phones(wd, ContactFormAttributes(mobile="+7 (495) 510-55-57"))
+        # self.fill_email(wd, ContactFormAttributes(email="elena.dobranitsa@gmail.com"))
+        # self.fill_birthday(wd, ContactFormAttributes(byear="1991"))
+        # self.fill_address2(wd, ContactFormAttributes(address="no secondary address"))
+        # self.fill_phone2_notes(wd, ContactFormAttributes(phone2="Kiev", notes="no notes"))
 
-        self.fill_birthday(wd, ContactFormAttributes(byear="1991"))
-
-        self.fill_address2(wd, ContactFormAttributes(address="no secondary address"))
-
-        self.fill_phone2_notes(wd, ContactFormAttributes(phone2="Kiev", notes="no notes"))
         self.button_enter_click(wd)
         self.logout(wd)
 
