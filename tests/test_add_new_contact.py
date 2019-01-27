@@ -19,12 +19,13 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
+        wd.find_element_by_link_text("add new").click()
+        wd.implicitly_wait(30)
 
     def open_home_page(self, wd):
         wd.get("http://localhost/addressbook/index.php")
 
     def fill_first_last_name(self, wd, ct):
-        wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(ct.firstname)

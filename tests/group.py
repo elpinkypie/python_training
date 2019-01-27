@@ -8,7 +8,7 @@ class Group:
 
 class ContactFormAttributes:
 
-    def __init__(self, firstname, middlename, lastname, nickname, title, company, address, home, mobile, email, byear, phone2, notes, address2):
+    def __init__(self, firstname, middlename, lastname, nickname, title, company, address, mobile, email, byear, phone2, notes, address2):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
