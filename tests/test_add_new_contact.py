@@ -1,6 +1,6 @@
 import pytest
-from git.tests.group import ContactFormAttributes
-from git.tests.application import AddNewContact
+from git.model.group import ContactFormAttributes
+from git.fixture.application import AddNewContact
 
 
 @pytest.fixture

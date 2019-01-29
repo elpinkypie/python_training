@@ -1,6 +1,6 @@
 import pytest
-from git.tests.group import Group
-from git.tests.application import AddNewGroup
+from git.model.group import Group
+from git.fixture.application import AddNewGroup
 
 
 @pytest.fixture
