@@ -11,13 +11,13 @@ def fixt(request):
 
 
 def test_add_new_group(fixt):
-    fixt.login(username="admin", password="secret")
+    fixt.session.login(username="admin", password="secret")
     fixt.create_new_group(Group(name="gergerg", header="scsdcvs", footer="vsdvsv"))
-    fixt.logout()
+    fixt.session.logout()
 
 
 def test_add_emty_group(fixt):
-    fixt.login(username="admin", password="secret")
+    fixt.session.login(username="admin", password="secret")
     fixt.open_groups_page()
-    fixt.logout()
+    fixt.session.logout()
 
