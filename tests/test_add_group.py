@@ -1,11 +1,11 @@
 import pytest
 from git.tests.group import Group
-from git.tests.application import Application
+from git.tests.application import AddNewGroup
 
 
 @pytest.fixture
 def fixt(request):
-    fixture = Application()
+    fixture = AddNewGroup()
     request.addfinalizer(fixture.destroy)
     return fixture
 
