@@ -12,12 +12,12 @@ def fixt(request):
 
 def test_add_new_group(fixt):
     fixt.session.login(username="admin", password="secret")
-    fixt.create_new_group(Group(name="gergerg", header="scsdcvs", footer="vsdvsv"))
+    fixt.group.create(Group(name="gergerg", header="scsdcvs", footer="vsdvsv"))
     fixt.session.logout()
 
 
-def test_add_emty_group(fixt):
+def test_add_empty_group(fixt):
     fixt.session.login(username="admin", password="secret")
-    fixt.open_groups_page()
+    fixt.group.create(Group(name="", header="", footer=""))
     fixt.session.logout()
 
