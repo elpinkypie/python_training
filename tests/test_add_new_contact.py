@@ -1,11 +1,11 @@
 import pytest
-from git.model.group import ContactFormAttributes
-from git.fixture.application import AddNewContact
+from git.model.contact import ContactFormAttributes
+from git.fixture.application import Application
 
 
 @pytest.fixture
 def fixt(request):
-    fixture = AddNewContact()
+    fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture
 
