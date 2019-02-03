@@ -1,13 +1,4 @@
-import pytest
 from git.model.contact import ContactFormAttributes
-from git.fixture.application import Application
-
-
-@pytest.fixture
-def fixt(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 
 def test_add_new_contact(fixt):
