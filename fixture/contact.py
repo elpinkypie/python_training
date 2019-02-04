@@ -99,3 +99,18 @@ class ContactHelper:
         #press delete
         wd.find_element_by_xpath('//div[@class="left"]/input[@value="Delete"]').click()
         wd.switch_to_alert().accept()
+
+    def edit_contact(self, ct):
+        wd = self.fixt.wd
+        #click edit contact
+        wd.find_element_by_xpath('//a[@href="edit.php?id=7"]').click()
+        self.fill_all_info(ct)
+        wd.find_element_by_name("update").click()
+
+    def modify_contact(self, ct):
+        wd = self.fixt.wd
+        # click modify contact
+        wd.find_element_by_xpath('//a[@href="view.php?id=8"]').click()
+        wd.find_element_by_name('modifiy').click()
+        self.fill_all_info(ct)
+        wd.find_element_by_name("update").click()
