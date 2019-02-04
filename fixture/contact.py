@@ -79,4 +79,23 @@ class ContactHelper:
         wd = self.fixt.wd
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys(ct.address)
+        wd.find_element_by_name("address2").send_keys(ct.address2)
+
+    def fill_all_info(self, ct):
+        self.fill_first_last_name(ct)
+        self.fill_nickname_title_company(ct)
+        self.fill_address(ct)
+        self.fill_home_work_phones(ct)
+        self.fill_email(ct)
+        self.fill_birthday(ct)
+        self.fill_address2(ct)
+        self.fill_phone2_notes(ct)
+        self.button_enter_click()
+
+    def delete_first_contact(self):
+        wd = self.fixt.wd
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        #press delete
+        wd.find_element_by_xpath('//div[@class="left"]/input[@value="Delete"]').click()
+        wd.switch_to_alert().accept()
