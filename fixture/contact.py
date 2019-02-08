@@ -1,5 +1,7 @@
 from selenium.webdriver.support.ui import Select
-
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+import time
 
 class ContactHelper:
 
@@ -99,6 +101,8 @@ class ContactHelper:
         #press delete
         wd.find_element_by_xpath('//div[@class="left"]/input[@value="Delete"]').click()
         wd.switch_to_alert().accept()
+        # time.sleep(5)
+        self.check_deletion_message()
 
     def edit_contact(self, ct):
         wd = self.fixt.wd
@@ -114,3 +118,12 @@ class ContactHelper:
         wd.find_element_by_name('modifiy').click()
         self.fill_all_info(ct)
         wd.find_element_by_name("update").click()
+
+    def check_deletion_message(self):
+        wd = self.fixt.wd
+        element = wd.find_element_by_xpath('//*[@id="content"]/div[@class ="msgbox"]')
+        WebDriverWait(wd, 6).until(EC.visibility_of_element_located('//*[@id="content"]/div[@class ="msgbox"]'))
+        print(element)
+
+
+
