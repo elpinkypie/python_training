@@ -1,3 +1,4 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,6 +11,7 @@ class ContactHelper:
 
     def fill_first_last_name(self, ct):
         wd = self.fixt.wd
+        wd.find_element_by_xpath('//*[@id="nav"]//a[@href="edit.php"]').click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(ct.firstname)
@@ -94,6 +96,10 @@ class ContactHelper:
         self.fill_phone2_notes(ct)
         self.button_enter_click()
 
+    def check_deletion_message(self):
+        wd = self.fixt.wd
+        WebDriverWait(wd, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="content"]/div[@class ="msgbox"]')))
+
     def delete_first_contact(self):
         wd = self.fixt.wd
         # select first contact
@@ -119,11 +125,6 @@ class ContactHelper:
         self.fill_all_info(ct)
         wd.find_element_by_name("update").click()
 
-    def check_deletion_message(self):
-        wd = self.fixt.wd
-        element = wd.find_element_by_xpath('//*[@id="content"]/div[@class ="msgbox"]')
-        WebDriverWait(wd, 6).until(EC.visibility_of_element_located('//*[@id="content"]/div[@class ="msgbox"]'))
-        print(element)
 
 
 
