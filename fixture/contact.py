@@ -2,59 +2,45 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-import time
+
 
 class ContactHelper:
 
     def __init__(self, fixt):
         self.fixt = fixt
 
-    def fill_first_last_name(self, ct):
+    def change_field_value(self, field_name, text):
+        wd = self.fixt.wd
+
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
+
+    def click_add_new_contact(self):
         wd = self.fixt.wd
         wd.find_element_by_xpath('//*[@id="nav"]//a[@href="edit.php"]').click()
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(ct.firstname)
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(ct.middlename)
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(ct.lastname)
+
+    def fill_first_last_name(self, ct):
+        self.change_field_value("firstname", ct.firstname)
+        self.change_field_value("middlename", ct.middlename)
+        self.change_field_value("lastname", ct.lastname)
 
     def fill_nickname_title_company(self, ct):
-        wd = self.fixt.wd
-        wd.find_element_by_name("nickname").click()
-        wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys(ct.nickname)
-        wd.find_element_by_name("title").click()
-        wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys(ct.title)
-        wd.find_element_by_name("company").click()
-        wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys(ct.company)
+        self.change_field_value("nickname", ct.nickname)
+        self.change_field_value("title", ct.title)
+        self.change_field_value("company", ct.company)
 
     def fill_address(self, ct):
-        wd = self.fixt.wd
-        wd.find_element_by_name("address").click()
-        wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(ct.address)
+        self.change_field_value("address", ct.address)
 
     def fill_home_work_phones(self, ct):
-        wd = self.fixt.wd
-        wd.find_element_by_name("home").click()
-        wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(ct.mobile)
-        wd.find_element_by_name("mobile").click()
-        wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(ct.mobile)
-        wd.find_element_by_name("work").click()
-        wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys(ct.mobile)
+        self.change_field_value("home", ct.mobile)
+        self.change_field_value("mobile", ct.mobile)
+        self.change_field_value("work", ct.mobile)
 
     def fill_email(self, ct):
-        wd = self.fixt.wd
-        wd.find_element_by_name("email").click()
-        wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(ct.email)
+        self.change_field_value("email", ct.email)
 
     def fill_birthday(self, ct):
         wd = self.fixt.wd
@@ -62,28 +48,18 @@ class ContactHelper:
         Select(wd.find_element_by_name("bday")).select_by_visible_text("28")
         wd.find_element_by_name("bmonth").click()
         Select(wd.find_element_by_name("bmonth")).select_by_visible_text("August")
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(ct.byear)
+        self.change_field_value("byear", ct.byear)
 
     def button_enter_click(self):
         wd = self.fixt.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
     def fill_phone2_notes(self, ct):
-        wd = self.fixt.wd
-        wd.find_element_by_name("phone2").click()
-        wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys(ct.phone2)
-        wd.find_element_by_name("notes").click()
-        wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys(ct.notes)
+        self.change_field_value("phone2", ct.phone2)
+        self.change_field_value("notes", ct.notes)
 
     def fill_address2(self, ct):
-        wd = self.fixt.wd
-        wd.find_element_by_name("address2").click()
-        wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys(ct.address2)
+        self.change_field_value("address2", ct.address2)
 
     def fill_all_info(self, ct):
         self.fill_first_last_name(ct)
@@ -94,9 +70,13 @@ class ContactHelper:
         self.fill_birthday(ct)
         self.fill_address2(ct)
         self.fill_phone2_notes(ct)
+
+    def create(self, ct):
+        self.click_add_new_contact()
+        self.fill_all_info(ct)
         self.button_enter_click()
 
-    def check_deletion_message(self):
+    def check_success_message(self):
         wd = self.fixt.wd
         WebDriverWait(wd, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="content"]/div[@class ="msgbox"]')))
 
@@ -107,24 +87,30 @@ class ContactHelper:
         #press delete
         wd.find_element_by_xpath('//div[@class="left"]/input[@value="Delete"]').click()
         wd.switch_to_alert().accept()
-        # time.sleep(5)
-        self.check_deletion_message()
+        self.check_success_message()
 
     def edit_contact(self, ct):
         wd = self.fixt.wd
         #click edit contact
-        wd.find_element_by_xpath('//a[@href="edit.php?id=7"]').click()
+        wd.find_element_by_xpath('(//*[@id="maintable"]//img[@title="Edit"])[1]').click()
         self.fill_all_info(ct)
+        self.click_button_update()
+        self.check_success_message()
+
+    def click_button_update(self):
+        wd = self.fixt.wd
         wd.find_element_by_name("update").click()
 
     def modify_contact(self, ct):
         wd = self.fixt.wd
         # click modify contact
-        wd.find_element_by_xpath('//a[@href="view.php?id=8"]').click()
+        wd.find_element_by_xpath('(//*[@id="maintable"]//img[@title="Details"])[1]').click()
         wd.find_element_by_name('modifiy').click()
         self.fill_all_info(ct)
-        wd.find_element_by_name("update").click()
+        self.click_button_update()
+        self.check_success_message()
 
-
-
+    def count_contacts(self):
+        wd = self.fixt.wd
+        return len(wd.find_elements_by_name("selected[]"))
 
