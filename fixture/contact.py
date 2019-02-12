@@ -11,7 +11,6 @@ class ContactHelper:
 
     def change_field_value(self, field_name, text):
         wd = self.fixt.wd
-
         if text is not None:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
