@@ -16,6 +16,11 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
+    def open_home_page(self):
+        wd = self.fixt.wd
+        if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_name("selected[]")) > 0):
+            wd.find_element_by_link_text("home").click()
+
     def click_add_new_contact(self):
         wd = self.fixt.wd
         wd.find_element_by_xpath('//*[@id="nav"]//a[@href="edit.php"]').click()
@@ -71,6 +76,7 @@ class ContactHelper:
         self.fill_phone2_notes(ct)
 
     def create(self, ct):
+        self.open_home_page()
         self.click_add_new_contact()
         self.fill_all_info(ct)
         self.button_enter_click()
@@ -81,6 +87,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.fixt.wd
+        self.open_home_page()
         # select first contact
         wd.find_element_by_name("selected[]").click()
         #press delete
@@ -90,6 +97,7 @@ class ContactHelper:
 
     def edit_contact(self, ct):
         wd = self.fixt.wd
+        self.open_home_page()
         #click edit contact
         wd.find_element_by_xpath('(//*[@id="maintable"]//img[@title="Edit"])[1]').click()
         self.fill_all_info(ct)
@@ -102,6 +110,7 @@ class ContactHelper:
 
     def modify_contact(self, ct):
         wd = self.fixt.wd
+        self.open_home_page()
         # click modify contact
         wd.find_element_by_xpath('(//*[@id="maintable"]//img[@title="Details"])[1]').click()
         wd.find_element_by_name('modifiy').click()
