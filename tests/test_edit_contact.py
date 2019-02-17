@@ -9,9 +9,9 @@ def test_edit_contact(fixt):
     contact = ContactFormAttributes(firstname="edited", address="address", notes="notes")
     contact.id = old_contacts[0].id
     fixt.contact.edit_contact(contact)
-    new_contacts = fixt.contact.get_contact_list()
-    assert len(old_contacts) == len(new_contacts)
+    assert len(old_contacts) == fixt.contact.count_contacts()
 
+    new_contacts = fixt.contact.get_contact_list()
     old_contacts[0] = contact
     assert sorted(old_contacts, key=ContactFormAttributes.id_or_max) == sorted(new_contacts,
                                                                                key=ContactFormAttributes.id_or_max)
