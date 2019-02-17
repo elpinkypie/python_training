@@ -88,21 +88,27 @@ class ContactHelper:
         WebDriverWait(wd, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="content"]/div[@class ="msgbox"]')))
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.fixt.wd
         self.open_home_page()
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         #press delete
         wd.find_element_by_xpath('//div[@class="left"]/input[@value="Delete"]').click()
         wd.switch_to_alert().accept()
         self.check_success_message()
         self.contact_cache = None
 
-    def edit_contact(self, ct):
+    def edit_first_contact(self):
+        self.edit_contact_by_index(0, ct)
+
+    def edit_contact_by_index(self, index, ct):
         wd = self.fixt.wd
         self.open_home_page()
         #click edit contact
-        wd.find_element_by_xpath('(//*[@id="maintable"]//img[@title="Edit"])[1]').click()
+        wd.find_elements_by_xpath('//*[@id="maintable"]//img[@title="Edit"]')[index].click()
         self.fill_all_info(ct)
         self.click_button_update()
         self.check_success_message()
@@ -112,11 +118,14 @@ class ContactHelper:
         wd = self.fixt.wd
         wd.find_element_by_name("update").click()
 
-    def modify_contact(self, ct):
+    def modify_first_contact(self):
+        self.modify_contact_by_index(0, ct)
+
+    def modify_contact_by_index(self, index, ct):
         wd = self.fixt.wd
         self.open_home_page()
         # click modify contact
-        wd.find_element_by_xpath('(//*[@id="maintable"]//img[@title="Details"])[1]').click()
+        wd.find_elements_by_xpath('//*[@id="maintable"]//img[@title="Details"]')[index].click()
         wd.find_element_by_name('modifiy').click()
         self.fill_all_info(ct)
         self.click_button_update()
