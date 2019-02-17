@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from git.model.contact import ContactFormAttributes
 
 
 class ContactHelper:
@@ -122,3 +123,16 @@ class ContactHelper:
         wd = self.fixt.wd
         return len(wd.find_elements_by_name("selected[]"))
 
+    def get_contact_list(self):
+        wd = self.fixt.wd
+        self.open_home_page()
+        contacts = []
+        for element in wd.find_elements_by_name("entry"):
+            cells = element.find_elements_by_tag_name("td")
+            #lastname
+            text = cells[1].text
+            #firstname
+            text2 = cells[2].text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(ContactFormAttributes(firstname=text2, lastname=text, id=id))
+        return contacts
