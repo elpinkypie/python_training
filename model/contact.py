@@ -4,7 +4,8 @@ from sys import maxsize
 class ContactFormAttributes:
 
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, title=None, company=None,
-                 address=None, mobile=None, email=None, byear=None, phone2=None, notes=None, address2=None, id=None):
+                 address=None, homephone=None, workphone=None, mobilephone=None, email=None,
+                 byear=None, phone2=None, notes=None, address2=None, id=None):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -12,7 +13,9 @@ class ContactFormAttributes:
         self.title = title
         self.company = company
         self.address = address
-        self.mobile = mobile
+        self.homephone = homephone
+        self.workphone = workphone
+        self.mobilephone = mobilephone
         self.email = email
         self.byear = byear
         self.phone2 = phone2
