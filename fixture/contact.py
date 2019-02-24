@@ -45,7 +45,7 @@ class ContactHelper:
         self.change_field_value("work", ct.workphone)
 
     def fill_email(self, ct):
-        self.change_field_value("email1", ct.email1)
+        self.change_field_value("email", ct.email1)
         self.change_field_value("email2", ct.email2)
         self.change_field_value("email3", ct.email3)
 
