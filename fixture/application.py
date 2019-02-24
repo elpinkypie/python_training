@@ -6,12 +6,21 @@ from git.fixture.contact import ContactHelper
 
 class Application:
 
-    def __init__(self):
-        self.wd = webdriver.Chrome()
-        # self.wd.implicitly_wait(1)
+    def __init__(self, browser, base_url):
+        if browser == "chrome":
+            self.wd = webdriver.Chrome()
+        elif browser == "firefox":
+            self.wd = webdriver.Firefox()
+        elif browser == "safari":
+            self.wd = webdriver.Safari()
+        else:
+            raise ValueError("Unrecognized browser %s" % browser)
+
+        # c
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
+        self.base_url = base_url
 
     def is_valid(self):
         try:
@@ -22,7 +31,7 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/index.php")
+        wd.get(self.base_url)
 
     def destroy(self):
         self.wd.quit()
