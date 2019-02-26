@@ -1,8 +1,8 @@
 from git.model.contact import ContactFormAttributes
 
 
-def test_add_new_contact(fixt, data_contacts):
-    contact = data_contacts
+def test_add_new_contact(fixt, json_contacts):
+    contact = json_contacts
     old_contacts = fixt.contact.get_contact_list()
     fixt.contact.create(contact)
     assert len(old_contacts) + 1 == fixt.contact.count_contacts()
